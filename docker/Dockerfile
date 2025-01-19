@@ -1,23 +1,33 @@
 # Use Ubuntu 24.04 as the base image
 FROM ubuntu:24.04
 
-# Define build-time arguments for user, git username, git email, and sudo password
+# Define build-time arguments for user, git username, git email, sudo password, user ID, and group ID
 ARG USER_NAME
 ARG GIT_USER_NAME
 ARG GIT_USER_EMAIL
 ARG SUDO_PASSWORD
+ARG UID
+ARG GID
 
 # Set environment variables to ensure non-interactive installations
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install sudo and other necessary utilities
 RUN apt update && \
-    apt upgrade && \
+    apt upgrade -y && \
     apt install sudo -y
 
-# Create the user and set up sudo access
-RUN groupadd -r $USER_NAME && \
-    useradd -r -g $USER_NAME -m $USER_NAME && \
+# Check if a user with the specified UID already exists; if so, delete the user
+RUN if id -u $UID &>/dev/null; then \
+        USER_TO_REMOVE=$(getent passwd $UID | cut -d: -f1) && \
+        userdel -r $USER_TO_REMOVE; \
+    fi
+
+# Create the group with the specified GID
+RUN groupadd -g $GID $USER_NAME
+
+# Create the user with the specified UID, GID, and set up sudo access
+RUN useradd -r -u $UID -g $GID -m $USER_NAME && \
     usermod -aG sudo $USER_NAME && \
     echo "$USER_NAME:$SUDO_PASSWORD" | chpasswd && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER_NAME
@@ -47,7 +57,7 @@ RUN sudo apt-get install software-properties-common -y && \
 RUN sudo pip install poetry cffi
 RUN poetry config virtualenvs.in-project true
 
-# Set the working directory inside the container as a directory where the both the poetry.lock and the virtual environment will be created
+# Set the working directory inside the container as a directory where the poetry.lock and the virtual environment will be created
 WORKDIR /venv
 
 # Copy the pyproject.toml and poetry.lock files into the container
