@@ -49,3 +49,4 @@ repos:
         entry: poetry run pytest -p no:cacheprovider
         language: python
         types: [python]
+        pass_filenames: false
