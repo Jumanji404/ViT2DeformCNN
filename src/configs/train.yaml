@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+
+# Model configuration
+model:
+  teacher:
+    name: "vit_large_patch14_dinov2.lvd142m"
+    args:
+      global_pool: ""
+  student:
+    name: "dummy_model"
+    args:
+      in_channels: 3
+      out_channels: 10

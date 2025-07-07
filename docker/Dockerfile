@@ -45,11 +45,11 @@ RUN sudo apt update && \
 RUN sudo apt-get install software-properties-common -y && \
     sudo apt update && \
     sudo apt install build-essential -y && \
-    sudo apt install libssl-dev libffi-dev python3-dev -y && \
+    sudo apt install libssl-dev libffi-dev -y && \
     sudo apt install zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev -y && \
     sudo add-apt-repository ppa:deadsnakes/ppa && \
     sudo apt update && \
-    sudo apt install python3.10 python3.10-distutils -y && \
+    sudo apt install python3.10 python3.10-distutils python3.10-dev -y && \
     sudo wget https://bootstrap.pypa.io/get-pip.py && \
     sudo python3.10 get-pip.py
 
