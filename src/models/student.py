@@ -14,6 +14,8 @@ from models.layers import DeformableConv2d
 class DummyModel(nn.Module):
     """A simple model composed of deformable convolutional layers."""
 
+    layers: nn.Module
+
     def __init__(self, in_channels: int, out_channels: int, **kwargs: Any):
         """
         Initialize the DummyModel.

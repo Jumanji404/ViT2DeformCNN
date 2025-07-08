@@ -39,7 +39,8 @@ USER $USER_NAME
 RUN sudo apt update && \
     sudo apt upgrade -y && \
     sudo apt install wget -y && \
-    sudo apt install git-all -y
+    sudo apt install git-all -y && \
+    sudo apt install graphviz -y
 
 # Install Python dependencies
 RUN sudo apt-get install software-properties-common -y && \

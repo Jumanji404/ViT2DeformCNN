@@ -12,3 +12,10 @@ model:
     args:
       in_channels: 3
       out_channels: 10
+
+# Dataset configuration
+data:
+  name: "CIFAR10"
+  batch_size: 32
+  num_workers: 8
+  dir_path: ../data

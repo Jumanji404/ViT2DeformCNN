@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import cast
 
 import torch
-import torchvision.ops  # type: ignore[import-untyped]
+import torchvision.ops
 from torch import nn
 
 from models.layers.utils import to_tuple
@@ -17,10 +17,20 @@ class DeformableConv2d(nn.Module):
     by learning offsets and modulation masks.
 
     Attributes:
+        stride (tuple[int, int]): Stride of the convolution.
+        padding (tuple[int, int]): Padding of the convolution.
+        dilation (tuple[int, int]): Dilation of the convolution.
         offset_conv (nn.Conv2d): Learns spatial offsets.
         modulator_conv (nn.Conv2d): Learns modulation masks.
         regular_conv (nn.Conv2d): Standard convolutional layer.
     """
+
+    stride: tuple[int, int]
+    padding: tuple[int, int]
+    dilation: tuple[int, int]
+    offset_conv: nn.Conv2d
+    modulator_conv: nn.Conv2d
+    regular_conv: nn.Conv2d
 
     def __init__(  # pylint: disable=[R0913,R0917]
         self,
