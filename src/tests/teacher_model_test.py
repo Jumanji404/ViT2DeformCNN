@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Generator
-
 import pytest
 import torch
 from omegaconf import DictConfig
@@ -15,7 +13,7 @@ from models.layers.utils import to_tuple
 
 
 @pytest.fixture
-def teacher_student_model() -> Generator[TeacherStudentModel, None, None]:
+def teacher_student_model() -> TeacherStudentModel:
     """
     Fixture that builds and returns a TeacherStudentModel instance based on a sample config.
     """
@@ -62,7 +60,7 @@ def test_forward(teacher_student_model: TeacherStudentModel) -> None:  # pylint:
     assert output.student_output.shape == (2, 10, 518, 518)
 
 
-def test_utils_functions() -> None:  # pylint: disable=W0621
+def test_utils_functions() -> None:
     """
     Test the utility functions.
     """

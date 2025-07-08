@@ -5,3 +5,4 @@ outputs/
 .pytest_cache
 .coverage
 .ruff_cache
+src/data/
