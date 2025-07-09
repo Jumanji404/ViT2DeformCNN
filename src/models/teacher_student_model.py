@@ -34,6 +34,26 @@ class TeacherStudentModel(nn.Module):
         self._teacher = teacher
         self._student = student
 
+    @property
+    def teacher(self) -> nn.Module:
+        """
+        Returns the teacher model.
+
+        Returns:
+            The teacher model.
+        """
+        return self._teacher
+
+    @property
+    def student(self) -> nn.Module:
+        """
+        Returns the student model.
+
+        Returns:
+            The student model.
+        """
+        return self._student
+
     def forward(self, inputs: torch.Tensor) -> DistillationOutput:
         """
         The forward pass for the TeacherStudentModel.
@@ -42,7 +62,7 @@ class TeacherStudentModel(nn.Module):
             inputs: Input tensor passed through both the teacher and student models.
 
         Returns:
-            DistillationOutput: Contains outputs from both teacher and student models.
+            Contains outputs from both teacher and student models.
         """
         teacher_output = self._teacher(inputs)
         student_output = self._student(inputs)

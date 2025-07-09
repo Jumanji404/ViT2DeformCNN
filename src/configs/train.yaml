@@ -8,10 +8,9 @@ model:
     args:
       global_pool: ""
   student:
-    name: "dummy_model"
+    name: "custom_vgg11"
     args:
-      in_channels: 3
-      out_channels: 10
+      conv_layer_type: nn.Conv2D
 
 # Dataset configuration
 data:

@@ -38,7 +38,7 @@ class DeformableConv2d(nn.Module):
         out_channels: int,
         kernel_size: int | tuple[int, int] = 3,
         stride: int | tuple[int, int] = 1,
-        padding: int | tuple[int, int] = 1,
+        padding: int | tuple[int, int] = 0,
         dilation: int | tuple[int, int] = 1,
         bias: bool = False,
     ) -> None:
